@@ -300,6 +300,11 @@ ggplot(regression.points, aes(x = `Ladder score`, y = residual)) +
   labs(x = "Ladder score", y = "Residual") +
   geom_hline(yintercept = 0, col = "blue", size = 1) +
   facet_wrap(~ African)
+  
+ggplot(regression.points, aes(x = residual)) +
+  geom_histogram(binwidth = 0.25, color = "white") +
+  labs(x = "Residual") +
+  facet_wrap(~African)
 
 ```
 
