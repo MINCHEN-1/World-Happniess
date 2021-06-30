@@ -49,6 +49,27 @@ happy <- happy %>%
 
 The World Happiness Dataset is the iconic statistical data of global happiness. It contains six critical factors: economic production, social support, life expectancy, freedom, absence of corruption, and generosity. To find which factors are most influential to the ladder score, we fitted a linear regression model with all relevant explanatory variables. Noting that Africa’s ladder score seems the smallest amongst all countries, we used bootstrapping to find the 95th percentile of the difference in ladder score between Africa and the rest of the world and fit the regression model for these two cases.
 
+## Explanation of the Variables
+
+Outcome Variable
+
+Ladder Score: the scale of happiness, which is called happiness score in the poster
+
+
+Explanatory Variables
+
+Logged GDP per capita: the scale of economic production
+
+Social support: the scale of social support
+
+Healthy life expectancy: the scale of life expectancy
+
+Freedom to make life choices: the scale of freedom
+
+Generosity: the scale of absence of corruption
+
+Perceptions of corruption: the scale of generosity.
+
 # Explanatory analysis {#sec:Explan}
 
 
