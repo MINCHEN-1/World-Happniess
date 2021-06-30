@@ -34,8 +34,7 @@ happy <- read_csv("happiness.csv")
 happy <- as_tibble(happy)
 ```
 
-This code adds a column to the data, so each country is either Africa or Rest of the World.
-
+This code adds a column to the data, so each country is either Africa or Rest of the World (catergory).
 
 
 ```{r addcol}
