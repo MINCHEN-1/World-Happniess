@@ -311,7 +311,7 @@ Q2<-ggplot(happy, aes(x = `Perceptions of corruption`, y = `Ladder score`, color
 png(filename = "Q2.png",width=1920,height=1080,units="px",res=400)
 ```
 
-#check assumption
+Check assumption.
 ```{r}
 regression.points <- get_regression_points(Afr.model)
 regression.points
