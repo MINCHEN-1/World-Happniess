@@ -11,6 +11,8 @@ output:
 knitr::opts_chunk$set(echo = FALSE, eval = TRUE, warning = FALSE, message = FALSE, comment = NA)
 ```
 
+This contains all the libraries we need to load to run our code
+
 ```{r libraries}
 library(tidyverse)
 library(moderndive)
@@ -25,7 +27,7 @@ library(plotly)
 library(RColorBrewer)
 ```
 
-
+Read the data in to R and make sure it is a tibble
 
 ```{r data, echo = FALSE, eval = TRUE, warning = FALSE, message = FALSE}
 #Read "World Happiness" dataset into R.
@@ -34,7 +36,7 @@ happy <- read_csv("happiness.csv")
 happy <- as_tibble(happy)
 ```
 
-This code adds a column to the data, so each country is either Africa or Rest of the World (catergory).
+This code adds a column to the data, using the mutate function, so each country is either Africa or Rest of the World (catergory).
 
 
 ```{r addcol}
@@ -72,6 +74,8 @@ Perceptions of corruption: the scale of generosity.
 
 # Explanatory analysis {#sec:Explan}
 
+This code ceates summary statistics. The mean, SD, quantiles, min, max and median values are all calculated.
+The statistics relate to the ladder score, with is the score for happiness. (higher being better score).
 
 
 ```{r summ}
