@@ -114,10 +114,11 @@ happy %>%
 ```
 
 
-This code uses bootstrapping to find a 95% confidence interval for the mean ladder score of all the data
+This code uses bootstrapping to find a 95% confidence interval for the mean ladder score of all the data. By setting the seed to 1, it ensures that the bootstrap gives the same distribution each time, and hence it is reproducible. 
 
 
 ```{r bootstrap}
+set.seed(1)
 bootstrap_distribution_mean <- happy %>% 
   specify(response = `Ladder score`) %>% 
   generate(reps = 1000) %>% 
