@@ -11,7 +11,7 @@ output:
 knitr::opts_chunk$set(echo = FALSE, eval = TRUE, warning = FALSE, message = FALSE, comment = NA)
 ```
 
-This contains all the libraries we need to load to run our code
+This contains all the libraries we need to load to run our code.
 
 ```{r libraries}
 library(tidyverse)
@@ -27,14 +27,13 @@ library(plotly)
 library(RColorBrewer)
 ```
 
-Read the data in to R and make sure it is a tibble.
+Read the data into R and make sure it is a tibble. The data is already in a tidy format.
 
 ```{r data, echo = FALSE, eval = TRUE, warning = FALSE, message = FALSE}
 #Read "World Happiness" dataset into R.
 happy <- read_csv("Group_16.csv")
 happy <- as_tibble(happy)
 ```
-
 
 
 # Introduction {#sec:Intro}
@@ -61,6 +60,7 @@ Freedom to make life choices: the scale of freedom
 Generosity: the scale of generosity
 
 Perceptions of corruption: the scale of absence of corruption
+
 
 # Explanatory analysis {#sec:Explan}
 
@@ -91,26 +91,33 @@ happy %>%
   kable(col.names = c("Region","Number", "Mean", "SD", "1st Q", "3rd Q", "Min.", "Max","Median"),        
         caption = '\\label{tab:summary} Summary statistics') %>%
   kable_styling(font_size = 10, latex_options = "hold_position")
+  
 ```
 
 
-The graph shows the sactterplot of Happniess score in each region. There is a great difference in the distribution of Western Europe and Sub-Saharan Africa.
+The graph shows the sactterplot of happniess score in each region. There is a great difference in the distribution of Western Europe and Sub-Saharan Africa.
+
 ```{r}
 ggplot(data = happy,mapping = aes(y=`Regional indicator`,x=`Ladder score`,color=`Regional indicator`))+
   geom_point()+
   labs(x="Happiness score",y="Regions")+
   theme(legend.position="none")
+  
 ```
 
+
 We also sort the data and found that the top 5 countries are all from west Europe, and 4 of the bottom 5 countries are from Africa. 
+
 ```{r}
 sorted_happy <- happy[order(happy$`Ladder score`),]
 sorted_happy
+
 ```
 
 
-Also summary data for Africa and Rest of the World.
+Summary data for Africa and Rest of the World.
 African countries have 53 and 96 others. African countries scored 4.73 in average, much lower than other countries'  mean scores of 5.98.
+
 ```{r sumafrica}
 #summary stats for AFRICA and REST OF WORLD
 happy %>%
@@ -122,14 +129,11 @@ happy %>%
   kable(col.names = c("Region","Number", "Mean", "SD", "1st Q", "3rd Q", "Min.", "Max","Median"),        
         caption = '\\label{tab:summary} Summary statistics') %>%
   kable_styling(font_size = 10, latex_options = "hold_position")
-
-
+  
 ```
 
 
-This code uses bootstrapping to find a 95% confidence interval for the mean ladder score of all the data. By setting the seed to 1, it ensures that the bootstrap gives the same distribution each time, and hence it is reproducible. 
-
-The bule region shows the  95% confidence interval for mean happiness score distribution. It is between 5.36 and 5.70.
+This code uses bootstrapping to find a 95% confidence interval for the mean ladder score of all the data. By setting the seed to 1, it ensures that the bootstrap gives the same distribution each time, and hence it is reproducible. The bule region shows the  95% confidence interval for mean happiness score distribution. It is between 5.36 and 5.70.
 
 ```{r bootstrap}
 set.seed(1)
@@ -215,6 +219,7 @@ get_regression_table(full_model)%>%
   kable_styling(latex_options = 'HOLD_position')
 
 summary(full_model)
+
 ```
 
 It shows that variables "Logged GDP per capita", "Social support", and "Freedom to make life choice"'s have lowest p_value which are all less than 0.05 so they are most significant. We also check the correlationship between these six variables. And for the full model, R square is 0.7558.
@@ -244,6 +249,7 @@ get_regression_table(final_model)%>%
   kable(caption = '\\label{tab:reg} Estimates of the parameters from the final fitted linear regression model.') %>%
   kable_styling(latex_options = 'HOLD_position')
 summary(final_model)
+
 ```
 
 For the final model, its R square is 0.7334, doesn't lost much, compared to the full model.
@@ -335,6 +341,7 @@ ggplot(happy, aes(x = `Perceptions of corruption`, y = `Ladder score`, color = A
   geom_jitter() +
   labs(x = "Perceptions of corruption", y = "Ladder Score", color = "African") +
   geom_smooth(method = "lm", se = FALSE)
+  
 ```
 The above figure shows that for the rest of the World, increased corruption is associated with lower ladder scores. However, in Africa, there is little evidence that an increase in corruption makes much difference to happiness.
 
