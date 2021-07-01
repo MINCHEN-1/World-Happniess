@@ -311,19 +311,29 @@ summary(Afr.model)
 get_regression_table(Afr.model)
 ```
 
+Our final estimated interaction model shows as follows,
+
+For African countries:
+
+$$\widehat{\mbox{Happiness score}} = 4.682+ 0.06 \cdot \mbox{Corruption} $$
+
+For Non-African countries:
+
+$$\widehat{\mbox{Happiness score}} = 7.68 - 2.462 \cdot \mbox{Corruption} $$
+
 ```{r,echo=TRUE,fig.align='center',fig.width=13,fig.cap="\\label{fig:corruption} Scatterplots of the residuals.",fig.pos='H',message=FALSE}
 #Draw the graph to show that corruption variable have different impact on Afircan countries and Non-African countries.
-Q2<-ggplot(happy, aes(x = `Perceptions of corruption`, y = `Ladder score`, color = African)) +
+ggplot(happy, aes(x = `Perceptions of corruption`, y = `Ladder score`, color = African)) +
   geom_jitter() +
   labs(x = "Perceptions of corruption", y = "Ladder Score", color = "African") +
   geom_smooth(method = "lm", se = FALSE)
-png(filename = "Q2.png",width=1920,height=1080,units="px",res=400)
 ```
 The above figure shows that for the rest of the World, increased corruption is associated with lower ladder scores. However, in Africa, there is little evidence that an increase in corruption makes much difference to happiness.
 
 This suggests that for the rest of the World, corruption is an important issue that can significantly reduce happiness. In Africa, this variable is less significant, perhaps due to other more fundamental problems like life expectancy or GDP being more important.
 
-Check assumption.
+Before we can proceed to use the fitted model, we must check the assumption of the model.
+
 ```{r,echo=TRUE,fig.align='center',fig.width=13,fig.cap="\\label{fig:assumption} Scatterplots of the residuals.",fig.pos='H',message=FALSE}
 regression.points <- get_regression_points(Afr.model)
 regression.points
