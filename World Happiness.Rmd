@@ -27,7 +27,7 @@ library(plotly)
 library(RColorBrewer)
 ```
 
-Read the data in to R and make sure it is a tibble
+Read the data in to R and make sure it is a tibble.
 
 ```{r data, echo = FALSE, eval = TRUE, warning = FALSE, message = FALSE}
 #Read "World Happiness" dataset into R.
@@ -36,16 +36,7 @@ happy <- read_csv("happiness.csv")
 happy <- as_tibble(happy)
 ```
 
-This code adds a column to the data, using the mutate function, so each country is either Africa or Rest of the World (catergory).
 
-
-```{r addcol}
-#Add a column called African, if countries are in Africa, the value is Africa, otherwise, the value is World.
-happy <- happy %>%
-  mutate(African = ifelse(happy$`Regional indicator` == "Sub-Saharan Africa" | happy$`Regional indicator` == "Middle East and North Africa",
-                "Africa","World"))
-
-```
 
 # Introduction {#sec:Intro}
 
@@ -68,14 +59,27 @@ Healthy life expectancy: the scale of life expectancy
 
 Freedom to make life choices: the scale of freedom
 
-Generosity: the scale of absence of corruption
+Generosity: the scale of generosity
 
-Perceptions of corruption: the scale of generosity.
+Perceptions of corruption: the scale of absence of corruption
 
 # Explanatory analysis {#sec:Explan}
 
-This code ceates summary statistics. The mean, SD, quantiles, min, max and median values are all calculated.
+This code adds a column to the data, using the mutate function, so each country is either Africa or Rest of the World (catergory).
+
+```{r addcol}
+#Add a column called African, if countries are in Africa, the value is Africa, otherwise, the value is World.
+happy <- happy %>%
+  mutate(African = ifelse(happy$`Regional indicator` == "Sub-Saharan Africa" | happy$`Regional indicator` == "Middle East and North Africa",
+                "Africa","World"))
+
+```
+
+
+This code shows a summary for each region. The mean, SD, quantiles, min, max and median values are all calculated.
 The statistics relate to the ladder score, with is the score for happiness. (higher being better score).
+
+North America and ANZ's mean happiness score is 7.13 which is the highest score. Western Europe's mean score is 6.91 which is the second highest score. South Asia's mean score is at the bpttom of the table at 4.44. Sub-Saharan Africa is the second lowest on the list at 4.49.
 
 
 ```{r summ}
@@ -91,9 +95,8 @@ happy %>%
 ```
 
 
-
+The graph shows the sactterplot of Happniess score in each region. There is a great difference in the distribution of Western Europe and Sub-Saharan Africa.
 ```{r}
-#The graph shows the Happniess score in each region.
 ggplot(data = happy,mapping = aes(y=`Regional indicator`,x=`Ladder score`,color=`Regional indicator`))+
   geom_point()+
   labs(x="Happiness score",y="Regions")+
@@ -101,7 +104,7 @@ ggplot(data = happy,mapping = aes(y=`Regional indicator`,x=`Ladder score`,color=
 ```
 
 Also summary data for Africa and Rest of the World.
-
+African countries have 53 and 96 others. African countries scored 4.73 in average, much lower than other countries'  mean scores of 5.98.
 ```{r sumafrica}
 #summary stats for AFRICA and REST OF WORLD
 happy %>%
@@ -120,6 +123,7 @@ happy %>%
 
 This code uses bootstrapping to find a 95% confidence interval for the mean ladder score of all the data. By setting the seed to 1, it ensures that the bootstrap gives the same distribution each time, and hence it is reproducible. 
 
+The bule region shows the  95% confidence interval for mean happiness score distribution, It is between 5.36 and 5.70.
 
 ```{r bootstrap}
 set.seed(1)
@@ -136,7 +140,6 @@ percentile_ci <- bootstrap_distribution_mean %>%
 
 boots<-bootstrap_distribution_mean %>% 
   visualize(endpoints = percentile_ci, direction = "between")
-png(filename = "boots.png",width=1920,height=1080,units="px",res=400)
 boots
 
 ```
