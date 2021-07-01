@@ -123,7 +123,7 @@ happy %>%
 
 This code uses bootstrapping to find a 95% confidence interval for the mean ladder score of all the data. By setting the seed to 1, it ensures that the bootstrap gives the same distribution each time, and hence it is reproducible. 
 
-The bule region shows the  95% confidence interval for mean happiness score distribution, It is between 5.36 and 5.70.
+The bule region shows the  95% confidence interval for mean happiness score distribution. It is between 5.36 and 5.70.
 
 ```{r bootstrap}
 set.seed(1)
@@ -188,6 +188,7 @@ percentile_ci
 # Linear models {#sec:models}
 
 ## Question 1 
+We have six variables and want to know is there statistically significant relationship between happiness score and six variables and use these to estimate the model.
 
 First we fit the full model includes six variables.
 
@@ -210,18 +211,18 @@ get_regression_table(full_model)%>%
 summary(full_model)
 ```
 
-It shows that variables "Social support", "Freedom to make life choice" and "Logged GDP per capita" are most significant, then we check the correlationship between these six variables. 
+It shows that variables "Logged GDP per capita", "Social support", and "Freedom to make life choice"'s have lowest p_value which are all less than 0.05 so they are most significant. We also check the correlationship between these six variables.
 
 ```{r correlation}
 ggpairs(happy[,c(3,7:12)])
 ```
 
-Although "Healthy life expectancy" has the strongest correlation with "Ladder score", this variable also has the high correlation with other two variables (Logged GDP per capita and Social support). 
+Although Healthy life expectancy" has the strongest correlation with "Ladder score", this variable also has the high correlation with other two variables (Logged GDP per capita and Social support).
 
 Finally, we decide to use three variables, Logged GDP per capita, Social support and Freedom to make life choices to fit our model.
 
-$$\widehat{\mbox{Happiness score}} = \widehat\alpha 
-+\widehat\beta_{\mbox{1}} \cdot \mbox{Social support} + \widehat\beta_{\mbox{2}} \cdot \mbox{Freedom}, $$
+$$\widehat{\mbox{Happiness score}} = \widehat\alpha + \widehat\beta_{\mbox{1}} \cdot \mbox{GDP}
++\widehat\beta_{\mbox{2}} \cdot \mbox{Social support} + \widehat\beta_{\mbox{3}} \cdot \mbox{Freedom}, $$
 
 where 
 
@@ -241,10 +242,10 @@ summary(final_model)
 
 Our final model shows as follows,
 
-$$\widehat{\mbox{Happiness score}} = -1.439
-+5.649 \cdot \mbox{Social support} + 2.993 \cdot \mbox{Freedom}, $$
+$$\widehat{\mbox{Happiness score}} = -2.61+ 0.44 \cdot \mbox{GDP}
++2.34 \cdot \mbox{Social support} + 2.68 \cdot \mbox{Freedom}, $$
 
-Before we can proceed to use the fitted model, we must check the assumption of the model. we assesses the model assumptions by plotting the residuals against the explanatory variable in Figure \ref{fig:resids_1} ,\ref{fig:resids_1} and a histogram (Figure \ref{fig:hist}) of the residuals to assess whether they are normally distributed.
+Before we can proceed to use the fitted model, we must check the assumption of the model. We assesses the model assumptions by plotting the residuals against the explanatory variable in Figure \ref{fig:resids_1} ,\ref{fig:resids_1} and a histogram (Figure \ref{fig:hist}) of the residuals to assess whether they are normally distributed.
 
 ```{r assumptions}
 regression_points <- get_regression_points(final_model)
