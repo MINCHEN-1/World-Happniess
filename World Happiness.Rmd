@@ -318,7 +318,7 @@ $$\widehat{\mbox{Happiness score}} = 4.682+ 0.06 \cdot \mbox{Corruption} $$
 
 For Non-African countries:
 
-$$\widehat{\mbox{Happiness score}} = 7.68 - 2.462 \cdot \mbox{Corruption} $$
+$$\widehat{\mbox{Happiness score}} = 7.68 - 2.408 \cdot \mbox{Corruption} $$
 
 ```{r,echo=TRUE,fig.align='center',fig.width=13,fig.cap="\\label{fig:corruption} Scatterplots of the residuals.",fig.pos='H',message=FALSE}
 #Draw the graph to show that corruption variable have different impact on Afircan countries and Non-African countries.
