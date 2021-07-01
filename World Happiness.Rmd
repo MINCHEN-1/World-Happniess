@@ -102,6 +102,13 @@ ggplot(data = happy,mapping = aes(y=`Regional indicator`,x=`Ladder score`,color=
   theme(legend.position="none")
 ```
 
+We also sort the data and found that the top 5 countries are all from west Europe, and 4 of the bottom 5 countries are from Africa. 
+```{r}
+sorted_happy <- happy[order(happy$`Ladder score`),]
+sorted_happy
+```
+
+
 Also summary data for Africa and Rest of the World.
 African countries have 53 and 96 others. African countries scored 4.73 in average, much lower than other countries'  mean scores of 5.98.
 ```{r sumafrica}
