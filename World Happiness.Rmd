@@ -31,8 +31,7 @@ Read the data in to R and make sure it is a tibble.
 
 ```{r data, echo = FALSE, eval = TRUE, warning = FALSE, message = FALSE}
 #Read "World Happiness" dataset into R.
-setwd(dir = "D:\\STUDY\\GLASGOW\\Semester-2\\Data Analysis Skills\\Gruopwork\\Groupwork - 1 poster")
-happy <- read_csv("happiness.csv")
+happy <- read_csv("Group_16.csv")
 happy <- as_tibble(happy)
 ```
 
