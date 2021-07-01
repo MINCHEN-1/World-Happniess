@@ -210,7 +210,7 @@ get_regression_table(full_model)%>%
 summary(full_model)
 ```
 
-It shows that variables "Logged GDP per capita", "Social support", and "Freedom to make life choice"'s have lowest p_value which are all less than 0.05 so they are most significant. We also check the correlationship between these six variables.
+It shows that variables "Logged GDP per capita", "Social support", and "Freedom to make life choice"'s have lowest p_value which are all less than 0.05 so they are most significant. We also check the correlationship between these six variables. And for the full model, R square is 0.7558.
 
 ```{r correlation}
 ggpairs(happy[,c(3,7:12)])
@@ -238,6 +238,8 @@ get_regression_table(final_model)%>%
   kable_styling(latex_options = 'HOLD_position')
 summary(final_model)
 ```
+
+For the final model, its R square is 0.7334, doesn't lost much, compared to the full model.
 
 Our final model shows as follows,
 
