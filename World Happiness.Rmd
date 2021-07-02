@@ -390,3 +390,11 @@ The reason why the assupmtions are not satisfied maye be the variables are not i
 In question 1, by fitting the full model for six variables (critical factors) and comparing correlation and p-value with "Happiness score", we found the "Logged GDP per capita", "Freedom to make life choice" and "Social support" are most significant and also have the relatively high correlations with response variable “Happiness score". Hence, we chose those three variables (the residuals all have mean zero), "Logged GDP per capita", "Social support" and "Freedom to make life choices" to fit our model. There are moderately strong positive linear relationships between "Happiness score" and "Social support". Furthermore, the linear relationships between "Happiness score" and "Social support" in the most non-African countries is stronger than that in African countries. Similarly, non-African countries have higher "Freedom to make life choice" and "Logged GDP per capita" compared with African countries.
 
 In question 2, There is a noticeable difference in the gradient for the rest the of the World than for Africa. For the rest of the World, increased "Corruption" is associated with lower "Happiness score". However, in Africa, there is little evidence that an increase in corruption makes much difference to happiness, which means "Corruption" has less impact on African countries, while for the rest of the world, this variables will significantly reduce happiness.
+
+# Further work {#sec:Furth}
+
+1.For future work we can look a t different catergories, instead of Africa.
+
+2.We can also see if other variables are interesting, such as life expectancy.
+
+3.We can try to use other forms to transform our variables in question 2, such as log form.
