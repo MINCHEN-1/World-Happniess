@@ -8,12 +8,13 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, eval = TRUE, warning = FALSE, message = FALSE, comment = NA)
+knitr::opts_chunk$set(echo = TRUE, eval = TRUE, warning = FALSE, message = FALSE, comment = NA)
 ```
 
 This contains all the libraries we need to load to run our code.
 
 ```{r libraries}
+#all libraries needed
 library(tidyverse)
 library(moderndive)
 library(skimr)
@@ -32,7 +33,7 @@ Read the data into R and make sure it is a tibble. The data is already in a tidy
 ```{r data, echo = FALSE, eval = TRUE, warning = FALSE, message = FALSE}
 #Read "World Happiness" dataset into R.
 happy <- read_csv("Group_16.csv")
-happy <- as_tibble(happy)
+happy <- as_tibble(happy)   #ensure data is tibble
 ```
 
 
@@ -97,7 +98,8 @@ happy %>%
 
 The graph shows the sactterplot of happniess score in each region. There is a great difference in the distribution of Western Europe and Sub-Saharan Africa.
 
-```{r}
+```{r graph1}
+#use ggplot function to create the plot
 ggplot(data = happy,mapping = aes(y=`Regional indicator`,x=`Ladder score`,color=`Regional indicator`))+
   geom_point()+
   labs(x="Happiness score",y="Regions")+
@@ -108,7 +110,7 @@ ggplot(data = happy,mapping = aes(y=`Regional indicator`,x=`Ladder score`,color=
 
 We also sort the data and found that the top 5 countries are all from west Europe, and 4 of the bottom 5 countries are from Africa. 
 
-```{r}
+```{r order}
 sorted_happy <- happy[order(happy$`Ladder score`),]
 sorted_happy
 
@@ -120,6 +122,7 @@ African countries have 53 and 96 others. African countries scored 4.73 in averag
 
 ```{r sumafrica}
 #summary stats for AFRICA and REST OF WORLD
+#using the summarise function
 happy %>%
   group_by(African) %>%
   summarise(n=n(),  Mean=round(mean(`Ladder score`),2), SD=round(sd(`Ladder score`),2), FQ=quantile(`Ladder score`, 0.25),
@@ -136,18 +139,20 @@ happy %>%
 This code uses bootstrapping to find a 95% confidence interval for the mean ladder score of all the data. By setting the seed to 1, it ensures that the bootstrap gives the same distribution each time, and hence it is reproducible. The bule region shows the  95% confidence interval for mean happiness score distribution. It is between 5.36 and 5.70.
 
 ```{r bootstrap}
-set.seed(1)
+set.seed(1)  # for reproducability
 bootstrap_distribution_mean <- happy %>% 
   specify(response = `Ladder score`) %>% 
   generate(reps = 1000) %>% 
   calculate(stat = "mean")
 
+#get 95% CI
 bootstrap_distribution_mean %>% 
   get_ci(level = 0.95, type = "percentile")
 
 percentile_ci <- bootstrap_distribution_mean %>% 
   get_ci()
 
+#Produce plots
 boots<-bootstrap_distribution_mean %>% 
   visualize(endpoints = percentile_ci, direction = "between")
 boots
@@ -163,7 +168,7 @@ ggplot(data = happy, mapping = aes(x = factor(`Regional indicator`),
   labs(x = "Region", y = "Score", title = "Happiness score")  + 
   scale_x_discrete(labels = unique(happy$`Regional indicator`))+
   theme(axis.text.x = element_text(angle=45,hjust = 0.5,vjust = 0.5))
-
+#code produces boxplot
 ```
 
 
@@ -175,7 +180,7 @@ ggplot(data = happy, mapping = aes(x = factor(African),
   geom_boxplot(fill = brewer.pal(7, "Set1")[3]) + 
   labs(x = "Region", y = "Score", title = "Happiness score")  + 
   scale_x_discrete(labels = c("Africa","Rest of World"))
-
+#same code as previous block but for two catergories
 ```
 
 
@@ -184,6 +189,8 @@ This shows that the score is between 1.65 and 1.11 lower in Africa than rest of 
 
 ```{r boot}
 
+# perform a bootstrap
+set.seed(1)   # for reproducability
 bootstrap_distribution <- happy %>%
   specify(`Ladder score`~ African) %>%
   generate(reps = 1000) %>%
@@ -191,6 +198,7 @@ bootstrap_distribution <- happy %>%
 percentile_ci <- bootstrap_distribution %>%
   get_ci()
 
+#display valued
 percentile_ci
 
 ```
@@ -212,6 +220,7 @@ $\widehat\alpha$ is the intercept;
 $\widehat\beta_{\mbox{i}}$ is the coefficeint for each variable (i=1,...,6);
 
 ```{r full_model}
+#Peform a linear model on the data
 full_model<-lm(`Ladder score`~`Logged GDP per capita`+`Social support`+`Healthy life expectancy`+`Freedom to make life choices`+`Generosity`+`Perceptions of corruption`,data = happy)
 get_regression_table(full_model)%>%
   dplyr::select(term,estimate) %>%  
@@ -225,6 +234,7 @@ summary(full_model)
 It shows that variables "Logged GDP per capita", "Social support", and "Freedom to make life choice"'s have lowest p_value which are all less than 0.05 so they are most significant. We also check the correlationship between these six variables. And for the full model, R square is 0.7558.
 
 ```{r correlation}
+#Show the correlation
 ggpairs(happy[,c(3,7:12)])
 ```
 
@@ -242,13 +252,15 @@ $\widehat\alpha$ is the intercept;
 $\widehat\beta_{\mbox{i}}$ is the coefficeint for each variable (i=1,2);
 
 ```{r final_model}
+
+#Code to produce linear model
 final_model<-lm(`Ladder score`~`Social support`+`Freedom to make life choices`+`Logged GDP per capita`,data = happy)
-summary(final_model)
+summary(final_model)   # get regression table figures
 get_regression_table(final_model)%>%
   dplyr::select(term,estimate) %>%  
   kable(caption = '\\label{tab:reg} Estimates of the parameters from the final fitted linear regression model.') %>%
   kable_styling(latex_options = 'HOLD_position')
-summary(final_model)
+summary(final_model)   #show the summary
 
 ```
 
@@ -262,6 +274,8 @@ $$\widehat{\mbox{Happiness score}} = -2.61+ 0.44 \cdot \mbox{GDP}
 Before we can proceed to use the fitted model, we must check the assumption of the model. We assesses the model assumptions by plotting the residuals against the explanatory variable in Figure \ref{fig:resids_1} ,\ref{fig:resids_1} and a histogram (Figure \ref{fig:hist}) of the residuals to assess whether they are normally distributed.
 
 ```{r assumptions}
+
+#Code gets the values of the regression points
 regression_points <- get_regression_points(final_model)
 ```
 
@@ -273,6 +287,7 @@ ggplot(regression_points, aes(x = `Social support`,y=residual)) +
   geom_jitter(width = 0.1) +
   labs(x = "Social support",y="Residual")+
   geom_hline(yintercept = 0,col="blue",size=1)
+#This code plots the model assumptions
 ```
 
 Check the first assumption of variable "Freedom to make life choices".
@@ -282,6 +297,8 @@ ggplot(regression_points, aes(x = `Freedom to make life choices`, y = residual))
   geom_point() +
   labs(x = "Freedom to make life choices", y = "Residual", title = "Residuals vs Freedom to make life choices")  +
   geom_hline(yintercept = 0, col = "blue", size = 1)
+
+#Same as previous block to check the model assumptions
 ```
 
 Check the first assumption of variable "Logged GDP per capita".
@@ -299,6 +316,8 @@ The scatterplots show an approximately spread of the residuals above and below t
 ggplot(regression_points,aes(x=residual))+
   geom_histogram(color="white")+
   labs(x="Residuals")
+
+#Show the residuals
 ```
 
 The histgram support the assumption of normally distributed errors in the model.
