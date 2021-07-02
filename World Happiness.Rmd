@@ -306,7 +306,7 @@ Check the first assumption of variable "Logged GDP per capita".
 ```{r,echo=TRUE,fig.align='center',fig.width=13,fig.cap="\\label{fig:resids_2} Scatterplots of the residuals.",fig.pos='H',message=FALSE}
 ggplot(regression_points, aes(x = `Logged GDP per capita`, y = residual)) +
   geom_point() +
-  labs(x = "Logged GDP per capita", y = "Residual", title = "Residuals vs Freedom to make life choices")  +
+  labs(x = "Logged GDP per capita", y = "Residual", title = "Residuals vs Logged GDP per capita")  +
   geom_hline(yintercept = 0, col = "blue", size = 1)
 ```
 
@@ -393,7 +393,7 @@ In question 2, There is a noticeable difference in the gradient for the rest the
 
 # Further work {#sec:Furth}
 
-1.For future work we can look a t different catergories, instead of Africa.
+1.For future work we can look at different catergories, instead of Africa.
 
 2.We can also see if other variables are interesting, such as life expectancy.
 
