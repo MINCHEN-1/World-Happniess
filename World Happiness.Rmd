@@ -384,6 +384,7 @@ ggplot(regression.points, aes(x = residual)) +
   facet_wrap(~African)
 
 ```
+The reason why the assupmtions are not satisfied maye be the variables are not independent, and also there are some outliers. In the further work, we can try use log form or other forms to transform our variables and get a better fitted model.
 
 # Conclusions {#sec:Conc}
 In question 1, by fitting the full model for six variables (critical factors) and comparing correlation and p-value with "Happiness score", we found the "Logged GDP per capita", "Freedom to make life choice" and "Social support" are most significant and also have the relatively high correlations with response variable “Happiness score". Hence, we chose those three variables (the residuals all have mean zero), "Logged GDP per capita", "Social support" and "Freedom to make life choices" to fit our model. There are moderately strong positive linear relationships between "Happiness score" and "Social support". Furthermore, the linear relationships between "Happiness score" and "Social support" in the most non-African countries is stronger than that in African countries. Similarly, non-African countries have higher "Freedom to make life choice" and "Logged GDP per capita" compared with African countries.
